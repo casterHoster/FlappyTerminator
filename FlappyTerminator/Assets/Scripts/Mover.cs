@@ -33,7 +33,12 @@ public class Mover : MonoBehaviour
             _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
             transform.rotation = _maxRotation;
         }
-
+        
         transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, Time.deltaTime * _rotationSpeed);
+    }
+
+    public void Reset()
+    {
+        transform.position = _startPosition;
     }
 }
