@@ -11,7 +11,7 @@ public class Pig : Person
     private Mover _mover;
     private Score _score;
 
-    public Action<Pig> Died;
+    public Action Died;
 
     protected override void Awake()
     {
@@ -47,8 +47,7 @@ public class Pig : Person
 
     protected override void Die()
     {
-        Time.timeScale = 0;
-        Died?.Invoke(this);
+        Died?.Invoke();
     }
 
     public void Reset()

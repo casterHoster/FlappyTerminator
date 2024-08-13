@@ -16,11 +16,11 @@ public class StartScreen : Window
     public override void Open()
     {
         WindowGroup.alpha = 1f;
-        ActionButton.interactable= true;
+        ActionButton.interactable = true;
     }
 
     protected override void OnButtonClick()
     {
-        throw new System.NotImplementedException();
+        PlayButtonClicked?.Invoke();
     }
 }

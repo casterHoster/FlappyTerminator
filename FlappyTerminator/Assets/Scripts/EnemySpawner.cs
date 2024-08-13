@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
             actionOnRelease: (enemy) => Disable(enemy));
     }
 
-    private void Start()
+    public void StartGenerate()
     {
         StartCoroutine(Generate());
     }

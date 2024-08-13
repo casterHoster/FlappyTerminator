@@ -5,7 +5,12 @@ using UnityEngine;
 
 public class EndGameScreen : Window
 {
-    public Action PlayButtonClicked;
+    public Action RestartButtonClicked;
+
+    private void Awake()
+    {
+        WindowGroup.alpha = 0f;
+    }
 
     public override void Close()
     {
@@ -21,6 +26,6 @@ public class EndGameScreen : Window
 
     protected override void OnButtonClick()
     {
-        throw new System.NotImplementedException();
+        RestartButtonClicked?.Invoke();
     }
 }
