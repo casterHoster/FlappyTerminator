@@ -8,6 +8,8 @@ using UnityEngine;
 [RequireComponent (typeof(CollisionHandler))]
 public class Pig : Person
 {
+    [SerializeField] private Vector3 _startPosition;
+
     private Mover _mover;
     private Score _score;
 
@@ -52,6 +54,7 @@ public class Pig : Person
 
     public void Reset()
     {
+        transform.position = _startPosition;
         _mover.Reset();
     }
 }

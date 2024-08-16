@@ -65,4 +65,9 @@ public class EnemySpawner : MonoBehaviour
             yield return _wait;
         }
     }
+
+    public void Reset()
+    {
+        
+    }
 }

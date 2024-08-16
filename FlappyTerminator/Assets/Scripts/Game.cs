@@ -34,6 +34,7 @@ public class Game : MonoBehaviour
         Time.timeScale = 1.0f;
         _enemySpawner.StartGenerate();
         _pig.Reset();
+        _enemySpawner.Reset();
     }
 
     private void StopGame()
