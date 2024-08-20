@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2688307161939782625}
   - component: {fileID: 1758382942288731248}
+  - component: {fileID: 8807976724605374033}
   m_Layer: 0
   m_Name: Mouth
   m_TagString: Untagged
@@ -48,6 +49,20 @@ MonoBehaviour:
   _projectile: {fileID: 5921098685219767198, guid: 8007ce01244d06d4187e7b2083250d09, type: 3}
   _delay: 1
   _force: 10
+  _pool: {fileID: 8807976724605374033}
+--- !u!114 &8807976724605374033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5152317354322526244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c16d3b11d0dc6428d22a65f0e497c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5921098685219767198, guid: 8007ce01244d06d4187e7b2083250d09, type: 3}
 --- !u!1001 &9088418672551497576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
+  _startPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2957127369488290144
 MonoBehaviour:
   m_ObjectHideFlags: 0

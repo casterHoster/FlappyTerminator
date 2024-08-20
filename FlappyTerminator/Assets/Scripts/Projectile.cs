@@ -16,6 +16,11 @@ public class Projectile : MonoBehaviour, IInteractable
         return _damage;
     }
 
+    public void DestroyGameobject()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnEnable()
     {
         StartCoroutine(CountLifeTime());

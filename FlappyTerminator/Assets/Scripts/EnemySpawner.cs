@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -11,17 +13,17 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform _rightBorder;
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
+    [SerializeField] private EnemyPool _pool;
 
-    private ObjectPool<Enemy> _pool;
     private WaitForSeconds _wait;
+    private List<Enemy> _enemyList;
+
+    public Action Reseted;
 
     private void Awake()
     {
         _wait = new WaitForSeconds(_delay);
-        _pool = new ObjectPool<Enemy>(
-            createFunc: Create,
-            actionOnGet: (enemy) => Initialize(enemy),
-            actionOnRelease: (enemy) => Disable(enemy));
+        _enemyList = new List<Enemy>();
     }
 
     public void StartGenerate()
@@ -29,45 +31,42 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(Generate());
     }
 
-    private Enemy Create()
+    public void Reset()
     {
-        float spawnPositionY = Random.Range(_upperBound, _lowerBound);
-        return Instantiate(_enemy, new Vector3(_rightBorder.transform.position.x, 
-            spawnPositionY, _rightBorder.transform.position.z), _enemy.transform.rotation);
+        foreach (Enemy enemy in _enemyList)
+        {
+            _pool.PutObject(enemy);
+        }
+
+        _enemyList.Clear();
+        _pool.Reset();
     }
 
-    private void Initialize(Enemy enemy)
+    private void Initialize()
     {
-        float spawnPositionY = Random.Range(_upperBound, _lowerBound);
-        enemy.transform.position = new Vector3(_rightBorder.transform.position.x,
-            spawnPositionY, _rightBorder.transform.position.z);
-        enemy.Died += PutAway;
+        float spawnPositionY = UnityEngine.Random.Range(_upperBound, _lowerBound);
+        Enemy enemy = _pool.GetObjects();
+        _enemyList.Add(enemy);
         enemy.ResetHealth();
+        enemy.transform.position = new Vector3(_rightBorder.transform.position.x, spawnPositionY, _rightBorder.transform.position.z);
+        enemy.transform.rotation = _enemy.transform.rotation;
+        enemy.Died += PutAway;
         enemy.gameObject.SetActive(true);
-    }
-
-    private void Disable(Enemy enemy)
-    {
-        enemy.gameObject.SetActive(false);
     }
 
     private void PutAway(Enemy enemy)
     {
         enemy.Died -= PutAway;
-        _pool.Release(enemy);
+        _enemyList.Remove(enemy);
+        _pool.PutObject(enemy);
     }
 
     private IEnumerator Generate()
     {
-        while(Time.timeScale != 0)
+        while (enabled)
         {
-            _pool.Get();
+            Initialize();
             yield return _wait;
         }
-    }
-
-    public void Reset()
-    {
-        
     }
 }

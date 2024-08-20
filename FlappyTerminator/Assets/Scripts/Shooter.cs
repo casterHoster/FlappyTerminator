@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Pool;
+using System.Linq;
 
 public class Shooter : MonoBehaviour
 {
@@ -10,48 +11,49 @@ public class Shooter : MonoBehaviour
     [SerializeField] private Projectile _projectile;
     [SerializeField] private float _delay;
     [SerializeField] private float _force;
+    [SerializeField] private ProjectilePool _pool; 
 
-    private ObjectPool<Projectile> _pool; 
     private WaitForSeconds _wait;
-
-    private void OnEnable()
-    {
-        _owner.Borned += StartFire;
-    }
+    private List<Projectile> _projectileList;
 
     private void Start()
     {
+        _projectileList = new List<Projectile>();
+        _owner.Reseted += Reset;
         StartFire();
+        _owner.Borned += StartFire;
     }
 
     private void Awake()
     {
         _wait = new WaitForSeconds(_delay);
-        _pool = new ObjectPool<Projectile>(
-            createFunc: Create,
-            actionOnGet: (projectile) => Initialize(projectile),
-            actionOnRelease: (projectile) => Disable(projectile));
     }
 
-    private void StartFire()
+    public void StartFire()
     {
         StartCoroutine(Fire());
     }
 
-    private Projectile Create()
+    public void Reset()
     {
-        Projectile projectile = Instantiate(_projectile, transform.position, _owner.transform.rotation);
+        foreach (Projectile projectile in _projectileList)
+        {
+            _pool.PutObject(projectile);
+        }
 
-        return SetLayerMask(projectile);
+        _projectileList.Clear();
+        _pool.Reset();
     }
 
-    private void Initialize(Projectile projectile)
+    private void Initialize()
     {
-        projectile.gameObject.SetActive(true);
+        Projectile projectile = _pool.GetObjects();
+        _projectileList.Add(projectile);
         projectile.TimeIsOver += PutAway;
         projectile.transform.position = transform.position;
         projectile.transform.rotation = _owner.transform.rotation;
         projectile = SetLayerMask(projectile);
+        projectile.gameObject.SetActive(true);
 
         if (projectile.TryGetComponent(out Rigidbody2D rigidbody2d)) 
           {
@@ -68,21 +70,15 @@ public class Shooter : MonoBehaviour
 
     private void PutAway(Projectile projectile)
     {
-        _pool.Release(projectile);
-    }
-
-    private void Disable(Projectile projectile)
-    {
-        projectile.TimeIsOver -= PutAway;
-        projectile.gameObject.SetActive(false);
+        _projectileList.Remove(projectile);
+        _pool.PutObject(projectile);
     }
 
     private IEnumerator Fire()
     {
         while (enabled)
         {
-            _pool.Get();
-
+            Initialize();
             yield return _wait;
         }
     }

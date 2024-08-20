@@ -37,4 +37,9 @@ public class Enemy : Person, IInteractable
     {
         Died?.Invoke(this);
     }
+
+    public void DestroyGameobject()
+    {
+        Destroy(gameObject);
+    }
 }

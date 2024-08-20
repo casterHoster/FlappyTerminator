@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -31,14 +32,16 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        Time.timeScale = 1.0f;
-        _enemySpawner.StartGenerate();
         _pig.Reset();
         _enemySpawner.Reset();
+        Time.timeScale = 1.0f;
+        _enemySpawner.gameObject.SetActive(true);
+        _enemySpawner.StartGenerate();
     }
 
     private void StopGame()
     {
+        _enemySpawner.gameObject.SetActive(false);
         Time.timeScale = 0f;
         _endScreen.Open();
     }

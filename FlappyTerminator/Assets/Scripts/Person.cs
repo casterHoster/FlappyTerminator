@@ -12,6 +12,7 @@ public abstract class Person : MonoBehaviour
     private CollisionHandler _collisionHandler;
 
     public Action Borned;
+    public Action Reseted;
 
     protected virtual void Awake()
     {
