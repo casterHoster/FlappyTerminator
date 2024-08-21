@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IInteractable
@@ -11,7 +9,12 @@ public class Projectile : MonoBehaviour, IInteractable
 
     public Action <Projectile> TimeIsOver;
 
-    public float GetDamage()
+    private void OnEnable()
+    {
+        StartCoroutine(CountLifeTime());
+    }
+
+    public float GiveDamage()
     {
         return _damage;
     }
@@ -19,11 +22,6 @@ public class Projectile : MonoBehaviour, IInteractable
     public void DestroyGameobject()
     {
         Destroy(gameObject);
-    }
-
-    private void OnEnable()
-    {
-        StartCoroutine(CountLifeTime());
     }
 
     private IEnumerator CountLifeTime()

@@ -1,18 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private int _quantity;
+
+    public Action<int> QuantityChanged;
+
+    public void Reset()
     {
-        
+        _quantity = 0;
+        QuantityChanged?.Invoke(_quantity);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Add()
     {
-        
+        _quantity++;
+        QuantityChanged?.Invoke(_quantity);
     }
 }

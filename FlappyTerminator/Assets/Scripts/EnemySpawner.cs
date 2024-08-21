@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -19,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     private List<Enemy> _enemyList;
 
     public Action Reseted;
+    public Action PutAwayed;
 
     private void Awake()
     {
@@ -59,6 +57,7 @@ public class EnemySpawner : MonoBehaviour
         enemy.Died -= PutAway;
         _enemyList.Remove(enemy);
         _pool.PutObject(enemy);
+        PutAwayed?.Invoke();
     }
 
     private IEnumerator Generate()

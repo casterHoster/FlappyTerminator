@@ -1,13 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private Pig _pig;
     [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private Score _score;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private EndGameScreen _endScreen;
 
@@ -32,8 +29,10 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
+        _enemySpawner.PutAwayed += _score.Add;
         _pig.Reset();
         _enemySpawner.Reset();
+        _score.Reset();
         Time.timeScale = 1.0f;
         _enemySpawner.gameObject.SetActive(true);
         _enemySpawner.StartGenerate();
@@ -41,6 +40,7 @@ public class Game : MonoBehaviour
 
     private void StopGame()
     {
+        _enemySpawner.PutAwayed -= _score.Add;
         _enemySpawner.gameObject.SetActive(false);
         Time.timeScale = 0f;
         _endScreen.Open();

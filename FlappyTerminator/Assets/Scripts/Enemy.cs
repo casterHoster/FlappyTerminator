@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionHandler))]
@@ -13,6 +11,11 @@ public class Enemy : Person, IInteractable
     public float GetDamage()
     {
         return _damage;
+    }
+
+    public void DestroyGameobject()
+    {
+        Destroy(gameObject);
     }
 
     protected override void ProcessCollision(IInteractable interactable)
@@ -36,10 +39,5 @@ public class Enemy : Person, IInteractable
     protected override void Die()
     {
         Died?.Invoke(this);
-    }
-
-    public void DestroyGameobject()
-    {
-        Destroy(gameObject);
     }
 }

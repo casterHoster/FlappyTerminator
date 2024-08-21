@@ -1,25 +1,25 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
-[RequireComponent (typeof(Score))]
 [RequireComponent (typeof(CollisionHandler))]
 public class Pig : Person
 {
     [SerializeField] private Vector3 _startPosition;
 
     private Mover _mover;
-    private Score _score;
-
     public Action Died;
 
     protected override void Awake()
     {
         base.Awake();
         _mover = GetComponent<Mover>();
-        _score = GetComponent<Score>();
+    }
+
+    public void Reset()
+    {
+        transform.position = _startPosition;
+        _mover.Reset();
     }
 
     protected override void ProcessCollision(IInteractable interactable)
@@ -38,7 +38,7 @@ public class Pig : Person
         if (interactable is Projectile)
         {
             Projectile projectile = (Projectile) interactable;
-            Health -= projectile.GetDamage();
+            Health -= projectile.GiveDamage();
         }
 
         if (Health <= 0)
@@ -50,11 +50,5 @@ public class Pig : Person
     protected override void Die()
     {
         Died?.Invoke();
-    }
-
-    public void Reset()
-    {
-        transform.position = _startPosition;
-        _mover.Reset();
     }
 }
