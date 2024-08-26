@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     private List<Enemy> _enemyList;
 
     public Action Reseted;
-    public Action PutAwayed;
+    public event Action Released;
 
     private void Awake()
     {
@@ -40,10 +40,10 @@ public class EnemySpawner : MonoBehaviour
         _pool.Reset();
     }
 
-    private void Initialize()
+    private void Spawn()
     {
         float spawnPositionY = UnityEngine.Random.Range(_upperBound, _lowerBound);
-        Enemy enemy = _pool.GetObjects();
+        Enemy enemy = _pool.GetObject();
         _enemyList.Add(enemy);
         enemy.ResetHealth();
         enemy.transform.position = new Vector3(_rightBorder.transform.position.x, spawnPositionY, _rightBorder.transform.position.z);
@@ -57,14 +57,14 @@ public class EnemySpawner : MonoBehaviour
         enemy.Died -= PutAway;
         _enemyList.Remove(enemy);
         _pool.PutObject(enemy);
-        PutAwayed?.Invoke();
+        Released?.Invoke();
     }
 
     private IEnumerator Generate()
     {
         while (enabled)
         {
-            Initialize();
+            Spawn();
             yield return _wait;
         }
     }

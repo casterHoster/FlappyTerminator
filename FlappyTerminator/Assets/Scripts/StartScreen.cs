@@ -2,7 +2,7 @@ using System;
 
 public class StartScreen : Window
 {
-    public Action PlayButtonClicked;
+    public event Action PlayButtonClicked;
 
     public override void Close()
     {

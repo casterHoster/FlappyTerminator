@@ -6,7 +6,7 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
 {
     [SerializeField] private T _prefab;
 
-    private Queue<T> _pool;
+    protected Queue<T> _pool;
 
     public IEnumerable<T> PooledObjects => _pool;
 
@@ -15,13 +15,11 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
         _pool = new Queue<T>();
     }
 
-    public T GetObjects()
+    public T GetObject()
     {
         if (_pool.Count == 0)
         {
-            var obj = Instantiate(_prefab);
-
-            return obj;
+            return Instantiate(_prefab);
         }
 
         return _pool.Dequeue();
@@ -33,7 +31,7 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
         obj.gameObject.SetActive(false);
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         _pool.Clear();
     }

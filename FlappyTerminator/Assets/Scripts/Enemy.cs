@@ -6,7 +6,7 @@ public class Enemy : Person, IInteractable
 {
     private float _damage = 1;
 
-    public Action<Enemy> Died;
+    public event Action<Enemy> Died;
 
     public float GetDamage()
     {

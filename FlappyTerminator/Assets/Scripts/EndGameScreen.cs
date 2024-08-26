@@ -2,7 +2,7 @@ using System;
 
 public class EndGameScreen : Window
 {
-    public Action RestartButtonClicked;
+    public event Action RestartButtonClicked;
 
     private void Awake()
     {

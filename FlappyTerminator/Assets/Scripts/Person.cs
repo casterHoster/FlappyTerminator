@@ -11,7 +11,7 @@ public abstract class Person : MonoBehaviour
     protected float Health;
     private CollisionHandler _collisionHandler;
 
-    public Action Borned;
+    public event Action Borned;
     public Action Reseted;
 
     protected virtual void Awake()

@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        _enemySpawner.PutAwayed += _score.Add;
+        _enemySpawner.Released += _score.Add;
         _pig.Reset();
         _enemySpawner.Reset();
         _score.Reset();
@@ -40,7 +40,7 @@ public class Game : MonoBehaviour
 
     private void StopGame()
     {
-        _enemySpawner.PutAwayed -= _score.Add;
+        _enemySpawner.Released -= _score.Add;
         _enemySpawner.gameObject.SetActive(false);
         Time.timeScale = 0f;
         _endScreen.Open();

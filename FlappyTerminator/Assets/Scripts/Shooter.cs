@@ -12,6 +12,9 @@ public class Shooter : MonoBehaviour
 
     private WaitForSeconds _wait;
     private List<Projectile> _projectileList;
+    private string _playerLayer = "Player";
+    private string _enemyLayer = "Enemy";
+
 
     private void Start()
     {
@@ -42,9 +45,9 @@ public class Shooter : MonoBehaviour
         _pool.Reset();
     }
 
-    private void Initialize()
+    private void Spawn()
     {
-        Projectile projectile = _pool.GetObjects();
+        Projectile projectile = _pool.GetObject();
         _projectileList.Add(projectile);
         projectile.TimeIsOver += PutAway;
         projectile.transform.position = transform.position;
@@ -75,7 +78,7 @@ public class Shooter : MonoBehaviour
     {
         while (enabled)
         {
-            Initialize();
+            Spawn();
             yield return _wait;
         }
     }
@@ -84,13 +87,13 @@ public class Shooter : MonoBehaviour
     {
         if (_owner is Enemy)
         {
-            projectile.gameObject.layer = LayerMask.NameToLayer("Enemy");
+            projectile.gameObject.layer = LayerMask.NameToLayer(_enemyLayer);
         }
         else
 
         if (_owner is Pig)
         {
-            projectile.gameObject.layer = LayerMask.NameToLayer("Player");
+            projectile.gameObject.layer = LayerMask.NameToLayer(_playerLayer);
         }
 
         return projectile;

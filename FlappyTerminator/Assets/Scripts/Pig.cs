@@ -8,7 +8,8 @@ public class Pig : Person
     [SerializeField] private Vector3 _startPosition;
 
     private Mover _mover;
-    public Action Died;
+
+    public event Action Died;
 
     protected override void Awake()
     {
