@@ -8,16 +8,16 @@ public class Projectile : MonoBehaviour, IInteractable
     private float _damage = 1;
     private float _lifeTime = 3;
 
+    public float Damage
+    {
+        get {return _damage;}
+    }
+
     public Action <Projectile> TimeIsOver;
 
     private void OnEnable()
     {
         StartCoroutine(CountLifeTime());
-    }
-
-    public float GiveDamage()
-    {
-        return _damage;
     }
 
     public void DestroyGameobject()
@@ -27,8 +27,7 @@ public class Projectile : MonoBehaviour, IInteractable
 
     private IEnumerator CountLifeTime()
     {
-        WaitForSeconds delay = new WaitForSeconds(_lifeTime);
-        yield return delay;
+        yield return new WaitForSeconds(_lifeTime);
         TimeIsOver?.Invoke(this);
     }
 }

@@ -39,7 +39,7 @@ public class Pig : Person
         if (interactable is Projectile)
         {
             Projectile projectile = (Projectile) interactable;
-            Health -= projectile.GiveDamage();
+            Health -= projectile.Damage;
         }
 
         if (Health <= 0)

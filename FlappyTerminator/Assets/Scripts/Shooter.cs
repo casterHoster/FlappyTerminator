@@ -52,7 +52,7 @@ public class Shooter : MonoBehaviour
         projectile.TimeIsOver += PutAway;
         projectile.transform.position = transform.position;
         projectile.transform.rotation = _owner.transform.rotation;
-        projectile = SetLayerMask(projectile);
+        SetLayerMask(projectile);
         projectile.gameObject.SetActive(true);
 
         if (projectile.TryGetComponent(out Rigidbody2D rigidbody2d)) 
@@ -72,6 +72,7 @@ public class Shooter : MonoBehaviour
     {
         _projectileList.Remove(projectile);
         _pool.PutObject(projectile);
+        projectile.TimeIsOver -= PutAway;
     }
 
     private IEnumerator Fire()
@@ -83,7 +84,7 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    private Projectile SetLayerMask(Projectile projectile)
+    private void SetLayerMask(Projectile projectile)
     {
         if (_owner is Enemy)
         {
@@ -95,7 +96,5 @@ public class Shooter : MonoBehaviour
         {
             projectile.gameObject.layer = LayerMask.NameToLayer(_playerLayer);
         }
-
-        return projectile;
     }
 }
