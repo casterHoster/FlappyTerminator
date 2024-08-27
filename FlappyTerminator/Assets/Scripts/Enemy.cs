@@ -23,6 +23,8 @@ public class Enemy : Person, IInteractable
         if (interactable is Projectile)
         {
             Health--;
+            Projectile projectile = (Projectile)interactable;
+            projectile.Collided?.Invoke(projectile);
         }
 
         if (Health <= 0)

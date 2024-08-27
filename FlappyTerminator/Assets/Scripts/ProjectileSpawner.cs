@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public class ProjectileSpawner : MonoBehaviour
 {
     [SerializeField] private Person _owner;
     [SerializeField] private Projectile _projectile;
@@ -49,7 +49,9 @@ public class Shooter : MonoBehaviour
     {
         Projectile projectile = _pool.GetObject();
         _projectileList.Add(projectile);
-        projectile.TimeIsOver += PutAway;
+        //projectile.TimeIsOver += PutAway;
+        projectile.Collided += PutAway;
+        projectile.FlyedAway += PutAway;
         projectile.transform.position = transform.position;
         projectile.transform.rotation = _owner.transform.rotation;
         SetLayerMask(projectile);
@@ -72,7 +74,9 @@ public class Shooter : MonoBehaviour
     {
         _projectileList.Remove(projectile);
         _pool.PutObject(projectile);
-        projectile.TimeIsOver -= PutAway;
+        //projectile.TimeIsOver -= PutAway;
+        projectile.Collided -= PutAway;
+        projectile.FlyedAway -= PutAway;
     }
 
     private IEnumerator Fire()

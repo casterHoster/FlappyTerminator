@@ -3,31 +3,55 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(CollisionHandler))]
 public class Projectile : MonoBehaviour, IInteractable
 {
+    public Action<Projectile> FlyedAway;
+
+    public CollisionHandler CollisionHandler
+    {
+        get {return GetComponent<CollisionHandler>();}
+    }
+
     private float _damage = 1;
-    private float _lifeTime = 3;
+    //private float _lifeTime = 3;
+
+    public Action<Projectile> Collided;
 
     public float Damage
     {
         get {return _damage;}
     }
 
-    public Action <Projectile> TimeIsOver;
-
-    private void OnEnable()
+    private void Awake()
     {
-        StartCoroutine(CountLifeTime());
+        CollisionHandler.CollisonDetected += ProcessCollision;
     }
+
+    private void ProcessCollision(IInteractable interactable)
+    {
+        if (interactable is Barrier)
+        {
+            FlyedAway?.Invoke(this);
+        }
+    }
+
+
+    //public Action <Projectile> TimeIsOver;
+
+    //private void OnEnable()
+    //{
+    //    StartCoroutine(CountLifeTime());
+    //}
 
     public void DestroyGameobject()
     {
         Destroy(gameObject);
     }
 
-    private IEnumerator CountLifeTime()
-    {
-        yield return new WaitForSeconds(_lifeTime);
-        TimeIsOver?.Invoke(this);
-    }
+    //private IEnumerator CountLifeTime()
+    //{
+    //    yield return new WaitForSeconds(_lifeTime);
+    //    TimeIsOver?.Invoke(this);
+    //}
 }
