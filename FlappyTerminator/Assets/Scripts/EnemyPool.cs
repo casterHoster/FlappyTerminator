@@ -9,9 +9,8 @@ public class EnemyPool : ObjectPool<Enemy>
         foreach (Enemy obj in _pool)
         {
             obj.Reseted?.Invoke();
-            obj.DestroyGameobject();
         }
 
-        base.Reset();
+        //base.Reset();
     }
 }

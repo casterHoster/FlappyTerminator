@@ -19,13 +19,13 @@ public class ProjectileSpawner : MonoBehaviour
     private void Start()
     {
         _projectileList = new List<Projectile>();
-        _owner.Reseted += Reset;
         StartFire();
         _owner.Borned += StartFire;
     }
 
     private void Awake()
     {
+        _owner.Reseted += Reset;
         _wait = new WaitForSeconds(_delay);
     }
 
@@ -42,14 +42,13 @@ public class ProjectileSpawner : MonoBehaviour
         }
 
         _projectileList.Clear();
-        _pool.Reset();
+        //_pool.Reset();
     }
 
     private void Spawn()
     {
         Projectile projectile = _pool.GetObject();
         _projectileList.Add(projectile);
-        //projectile.TimeIsOver += PutAway;
         projectile.Collided += PutAway;
         projectile.FlyedAway += PutAway;
         projectile.transform.position = transform.position;
@@ -74,7 +73,6 @@ public class ProjectileSpawner : MonoBehaviour
     {
         _projectileList.Remove(projectile);
         _pool.PutObject(projectile);
-        //projectile.TimeIsOver -= PutAway;
         projectile.Collided -= PutAway;
         projectile.FlyedAway -= PutAway;
     }

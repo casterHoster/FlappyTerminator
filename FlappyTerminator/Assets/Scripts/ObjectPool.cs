@@ -27,8 +27,8 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
 
     public void PutObject(T obj)
     {
-        _pool.Enqueue(obj);
         obj.gameObject.SetActive(false);
+        _pool.Enqueue(obj);
     }
 
     public virtual void Reset()

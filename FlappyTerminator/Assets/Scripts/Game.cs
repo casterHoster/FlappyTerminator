@@ -29,20 +29,20 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        _enemySpawner.Released += _score.Add;
         _pig.Reset();
+        _enemySpawner.Released += _score.Add;
         _enemySpawner.Reset();
         _score.Reset();
-        Time.timeScale = 1.0f;
         _enemySpawner.gameObject.SetActive(true);
         _enemySpawner.StartGenerate();
+        Time.timeScale = 1.0f;
     }
 
     private void StopGame()
     {
         _enemySpawner.Released -= _score.Add;
         _enemySpawner.gameObject.SetActive(false);
-        Time.timeScale = 0f;
         _endScreen.Open();
+        Time.timeScale = 0f;
     }
 }
