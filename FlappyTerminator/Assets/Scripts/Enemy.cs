@@ -25,11 +25,11 @@ public class Enemy : Person, IInteractable
             Health--;
             Projectile projectile = (Projectile)interactable;
             projectile.Collided?.Invoke(projectile);
-        }
 
-        if (Health <= 0)
-        {
-            Die();
+            if (Health <= 0)
+            {
+                Die();
+            }
         }
 
         if (interactable is Barrier)
@@ -40,6 +40,6 @@ public class Enemy : Person, IInteractable
 
     protected override void Die()
     {
-        Died?.Invoke(this);
+         Died?.Invoke(this);
     }
 }

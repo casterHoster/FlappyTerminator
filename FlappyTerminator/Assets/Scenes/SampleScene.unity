@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 7251545712921648861, guid: 0bd00f379dd60954db5b13278438607f, type: 3}
-  _delay: 2
+  _delay: 3
   _rightBorder: {fileID: 1664664132}
   _lowerBound: 5.5
   _upperBound: -2.2
@@ -2207,6 +2207,10 @@ PrefabInstance:
     - target: {fileID: 1752736875680839343, guid: 35c510f5c9dd37447a81aaaf381673ea, type: 3}
       propertyPath: m_Name
       value: Pig
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752736875680839343, guid: 35c510f5c9dd37447a81aaaf381673ea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1758382942288731248, guid: 35c510f5c9dd37447a81aaaf381673ea, type: 3}
       propertyPath: _pool

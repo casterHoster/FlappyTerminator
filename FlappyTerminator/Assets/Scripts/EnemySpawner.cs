@@ -45,7 +45,6 @@ public class EnemySpawner : MonoBehaviour
         float spawnPositionY = UnityEngine.Random.Range(_upperBound, _lowerBound);
         Enemy enemy = _pool.GetObject();
         _enemyList.Add(enemy);
-        enemy.ResetHealth();
         enemy.transform.position = new Vector3(_rightBorder.transform.position.x, spawnPositionY, _rightBorder.transform.position.z);
         enemy.transform.rotation = _enemy.transform.rotation;
         enemy.Died += PutAway;
@@ -56,6 +55,7 @@ public class EnemySpawner : MonoBehaviour
     {
         enemy.Died -= PutAway;
         _enemyList.Remove(enemy);
+        enemy.ResetHealth();
         _pool.PutObject(enemy);
         Released?.Invoke();
     }

@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class EnemyPool : ObjectPool<Enemy>
 {
-    public override void Reset()
+    public void Reset()
     {
         foreach (Enemy obj in _pool)
         {
             obj.Reseted?.Invoke();
         }
+    }
 
-        //base.Reset();
+    public void PutObject(Enemy obj)
+    {
+        Debug.Log("in pool");
+        obj.gameObject.SetActive(false);
+        _pool.Enqueue(obj);
     }
 }
