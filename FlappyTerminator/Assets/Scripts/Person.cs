@@ -12,11 +12,16 @@ public abstract class Person : MonoBehaviour
     private CollisionHandler _collisionHandler;
 
     public event Action Borned;
-    public Action Reseted;
+    public event Action Reseted;
 
     protected virtual void Awake()
     {
         _collisionHandler = GetComponent<CollisionHandler>();
+    }
+
+    private void OnDisable()
+    {
+        Reseted?.Invoke();
     }
 
     public void ResetHealth()
@@ -33,5 +38,4 @@ public abstract class Person : MonoBehaviour
     protected abstract void ProcessCollision(IInteractable interactable);
 
     protected abstract void Die();
-    
 }

@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
 
     private void StartGame()
     {
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1f;
         _pig.Reset();
         _score.Reset();
         _enemySpawner.Reset();
