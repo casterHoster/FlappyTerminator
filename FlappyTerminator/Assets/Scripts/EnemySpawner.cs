@@ -31,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
         foreach (Enemy enemy in _pool.PooledObjects)
         {
             enemy.Died -= PutAway;
+            enemy.ResetProjectiles();
         }
 
         _pool.Reset();

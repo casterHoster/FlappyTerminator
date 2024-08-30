@@ -10,18 +10,19 @@ public abstract class Person : MonoBehaviour
 
     protected float Health;
     private CollisionHandler _collisionHandler;
+    private ProjectileSpawner _projectileSpawner;
 
     public event Action Borned;
-    public event Action Reseted;
 
     protected virtual void Awake()
     {
         _collisionHandler = GetComponent<CollisionHandler>();
+        _projectileSpawner = GetComponentInChildren<ProjectileSpawner>();
     }
 
-    private void OnDisable()
+    public void ResetProjectiles()
     {
-        Reseted?.Invoke();
+        _projectileSpawner.Reset();
     }
 
     public void ResetHealth()

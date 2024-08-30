@@ -11,21 +11,18 @@ public class ProjectileSpawner : MonoBehaviour
     [SerializeField] private ProjectilePool _pool; 
 
     private WaitForSeconds _wait;
-    private List<Projectile> _projectileList;
     private string _playerLayer = "Player";
     private string _enemyLayer = "Enemy";
 
 
     private void Start()
     {
-        _projectileList = new List<Projectile>();
         StartFire();
         _owner.Borned += StartFire;
     }
 
     private void Awake()
     {
-        _owner.Reseted += Reset;
         _wait = new WaitForSeconds(_delay);
     }
 
@@ -36,19 +33,19 @@ public class ProjectileSpawner : MonoBehaviour
 
     public void Reset()
     {
-        foreach (Projectile projectile in _projectileList)
+        foreach (Projectile projectile in _pool.PooledObjects)
         {
-            _pool.PutObject(projectile);
+            projectile.Collided -= PutAway;
+            projectile.FlyedAway -= PutAway;
         }
 
-        _projectileList.Clear();
-        //_pool.Reset();
+        
+        _pool.Reset();
     }
 
     private void Spawn()
     {
         Projectile projectile = _pool.GetObject();
-        _projectileList.Add(projectile);
         projectile.Collided += PutAway;
         projectile.FlyedAway += PutAway;
         projectile.transform.position = transform.position;
@@ -71,7 +68,6 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void PutAway(Projectile projectile)
     {
-        _projectileList.Remove(projectile);
         _pool.PutObject(projectile);
         projectile.Collided -= PutAway;
         projectile.FlyedAway -= PutAway;
