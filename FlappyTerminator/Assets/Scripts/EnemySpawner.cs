@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -12,7 +11,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyPool _pool;
 
     private WaitForSeconds _wait;
-
     public Action Reseted;
     public event Action Released;
 
@@ -34,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
             enemy.ResetProjectiles();
         }
 
-        _pool.Reset();
+        _pool.ResetPool();
     }
 
     private void Spawn()
@@ -51,7 +49,11 @@ public class EnemySpawner : MonoBehaviour
         enemy.Died -= PutAway;
         enemy.ResetHealth();
         _pool.PutObject(enemy);
+
+        if (enemy.IsGivePoints)
+        {
         Released?.Invoke();
+        }
     }
 
     private IEnumerator Generate()

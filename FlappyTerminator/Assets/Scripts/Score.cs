@@ -7,7 +7,7 @@ public class Score : MonoBehaviour
 
     public Action<int> QuantityChanged;
 
-    public void Reset()
+    public void ResetScore()
     {
         _quantity = 0;
         QuantityChanged?.Invoke(_quantity);

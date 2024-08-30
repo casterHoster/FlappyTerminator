@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CollisionHandler))]
@@ -8,14 +6,14 @@ public class Projectile : MonoBehaviour, IInteractable
 {
     public Action<Projectile> FlyedAway;
 
+    private float _damage = 1;
+
+    public Action<Projectile> Collided;
+
     public CollisionHandler CollisionHandler
     {
         get {return GetComponent<CollisionHandler>();}
     }
-
-    private float _damage = 1;
-
-    public Action<Projectile> Collided;
 
     public float Damage
     {
@@ -33,10 +31,5 @@ public class Projectile : MonoBehaviour, IInteractable
         {
             FlyedAway?.Invoke(this);
         }
-    }
-
-    public void DestroyGameobject()
-    {
-        Destroy(gameObject);
     }
 }

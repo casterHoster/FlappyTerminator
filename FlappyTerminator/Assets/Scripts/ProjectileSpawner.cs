@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour
@@ -8,12 +7,11 @@ public class ProjectileSpawner : MonoBehaviour
     [SerializeField] private Projectile _projectile;
     [SerializeField] private float _delay;
     [SerializeField] private float _force;
-    [SerializeField] private ProjectilePool _pool; 
+    [SerializeField] private ProjectilePool _pool;
 
     private WaitForSeconds _wait;
     private string _playerLayer = "Player";
     private string _enemyLayer = "Enemy";
-
 
     private void Start()
     {
@@ -39,8 +37,8 @@ public class ProjectileSpawner : MonoBehaviour
             projectile.FlyedAway -= PutAway;
         }
 
-        
-        _pool.Reset();
+
+        _pool.ResetPool();
     }
 
     private void Spawn()
@@ -53,8 +51,8 @@ public class ProjectileSpawner : MonoBehaviour
         SetLayerMask(projectile);
         projectile.gameObject.SetActive(true);
 
-        if (projectile.TryGetComponent(out Rigidbody2D rigidbody2d)) 
-          {
+        if (projectile.TryGetComponent(out Rigidbody2D rigidbody2d))
+        {
             if (transform.rotation.y >= 0)
             {
                 rigidbody2d.velocity = new Vector3(_force, _owner.transform.rotation.z * _force);
@@ -63,7 +61,7 @@ public class ProjectileSpawner : MonoBehaviour
             {
                 rigidbody2d.velocity = new Vector3(-1 * _force, _owner.transform.rotation.z * _force);
             }
-          }
+        }
     }
 
     private void PutAway(Projectile projectile)

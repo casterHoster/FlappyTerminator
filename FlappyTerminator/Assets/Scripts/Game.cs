@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 1f;
         _pig.Reset();
-        _score.Reset();
+        _score.ResetScore();
         _enemySpawner.Reset();
         _enemySpawner.Released += _score.Add;
         _enemySpawner.gameObject.SetActive(true);

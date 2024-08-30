@@ -5,8 +5,11 @@ using UnityEngine;
 public class Enemy : Person, IInteractable
 {
     private float _damage = 1;
+    private bool _isGivePoints;
 
     public event Action<Enemy> Died;
+
+    public bool IsGivePoints => _isGivePoints;
 
     public float GetDamage()
     {
@@ -28,12 +31,14 @@ public class Enemy : Person, IInteractable
 
             if (Health <= 0)
             {
+                _isGivePoints = true;
                 Die();
             }
         }
 
         if (interactable is Barrier)
         {
+            _isGivePoints = false;
             Die();
         }
     }

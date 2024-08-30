@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +34,7 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
         _pool.Enqueue(obj);
     }
 
-    public void Reset()
+    public void ResetPool()
     {
         foreach (var obj in _allPull)
         {
