@@ -15,6 +15,7 @@ public class Mover : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
+    private KeyCode _keySpace = KeyCode.Space;
 
     private void Start()
     {
@@ -28,7 +29,7 @@ public class Mover : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(_keySpace)) 
         {
             _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
             transform.rotation = _maxRotation;
@@ -40,5 +41,7 @@ public class Mover : MonoBehaviour
     public void Reset()
     {
         transform.position = _startPosition;
+        _rigidbody2D.velocity = new Vector2();
+        transform.rotation = new Quaternion();
     }
 }

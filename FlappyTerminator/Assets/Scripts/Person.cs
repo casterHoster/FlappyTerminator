@@ -5,17 +5,16 @@ using System;
 public abstract class Person : MonoBehaviour
 {
     [SerializeField] private float _maxHealth;
+    [SerializeField] private ProjectileSpawner _projectileSpawner;
 
     protected float Health;
     private CollisionHandler _collisionHandler;
-    private ProjectileSpawner _projectileSpawner;
 
     public event Action Borned;
 
     protected virtual void Awake()
     {
         _collisionHandler = GetComponent<CollisionHandler>();
-        _projectileSpawner = GetComponentInChildren<ProjectileSpawner>();
     }
 
     public void ResetProjectiles()

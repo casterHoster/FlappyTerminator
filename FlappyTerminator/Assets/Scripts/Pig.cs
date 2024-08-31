@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
-[RequireComponent (typeof(CollisionHandler))]
+[RequireComponent(typeof(CollisionHandler))]
 public class Pig : Person
 {
     [SerializeField] private Vector3 _startPosition;
@@ -30,15 +30,15 @@ public class Pig : Person
             Die();
         }
 
-        if (interactable is Enemy)
+        else if (interactable is Enemy)
         {
-            Enemy enemy = (Enemy) interactable;
+            Enemy enemy = (Enemy)interactable;
             Health -= enemy.GetDamage();
         }
 
-        if (interactable is Projectile)
+        else if (interactable is Projectile)
         {
-            Projectile projectile = (Projectile) interactable;
+            Projectile projectile = (Projectile)interactable;
             Health -= projectile.Damage;
         }
 

@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
+  _projectileSpawner: {fileID: 7796545135190478023}
 --- !u!114 &2852190779239909044
 MonoBehaviour:
   m_ObjectHideFlags: 0
