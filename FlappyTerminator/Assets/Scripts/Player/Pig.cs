@@ -32,13 +32,8 @@ public class Pig : Person
 
         if (interactable is Enemy)
         {
-<<<<<<< HEAD:FlappyTerminator/Assets/Scripts/Player/Pig.cs
             Enemy enemy = (Enemy)interactable;
             Health -= enemy.Damage;
-=======
-            Enemy enemy = (Enemy) interactable;
-            Health -= enemy.GetDamage();
->>>>>>> parent of c2123de (commit):FlappyTerminator/Assets/Scripts/Pig.cs
         }
 
         if (interactable is Projectile)
