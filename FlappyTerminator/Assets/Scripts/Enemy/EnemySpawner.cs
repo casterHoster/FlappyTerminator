@@ -2,26 +2,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : Spawner
 {
-    [SerializeField] private float _delay;
     [SerializeField] private Transform _rightBorder;
     [SerializeField] private float _lowerBound;
     [SerializeField] private float _upperBound;
     [SerializeField] private EnemyPool _pool;
 
-    private WaitForSeconds _wait;
     public event Action Released;
-
-    private void Awake()
-    {
-        _wait = new WaitForSeconds(_delay);
-    }
-
-    public void StartGenerate()
-    {
-        StartCoroutine(Generate());
-    }
 
     public void Reset()
     {
@@ -34,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
         _pool.ResetPool();
     }
 
-    private void Spawn()
+    protected override void Spawn()
     {
         float spawnPositionY = UnityEngine.Random.Range(_upperBound, _lowerBound);
         Enemy enemy = _pool.GetObject();
@@ -52,15 +40,6 @@ public class EnemySpawner : MonoBehaviour
         if (enemy.IsGivePoints)
         {
         Released?.Invoke();
-        }
-    }
-
-    private IEnumerator Generate()
-    {
-        while (enabled)
-        {
-            yield return _wait;
-            Spawn();
         }
     }
 }

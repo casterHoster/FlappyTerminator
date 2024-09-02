@@ -1,32 +1,20 @@
 using System.Collections;
 using UnityEngine;
 
-public class ProjectileSpawner : MonoBehaviour
+public class ProjectileSpawner : Spawner
 {
     [SerializeField] private Person _owner;
-    [SerializeField] private Projectile _projectile;
-    [SerializeField] private float _delay;
     [SerializeField] private float _force;
     [SerializeField] private ProjectilePool _pool;
 
-    private WaitForSeconds _wait;
     private string _playerLayer = "Player";
     private string _enemyLayer = "Enemy";
-
-    private void Awake()
-    {
-        _wait = new WaitForSeconds(_delay);
-    }
+    //[SerializeField] private LayerMask _enemyLayer;
 
     private void Start()
     {
-        StartFire();
-        _owner.Borned += StartFire;
-    }
-
-    public void StartFire()
-    {
-        StartCoroutine(Fire());
+        StartGenerate();
+        _owner.Borned += StartGenerate;
     }
 
     public void Reset()
@@ -41,7 +29,7 @@ public class ProjectileSpawner : MonoBehaviour
         _pool.ResetPool();
     }
 
-    private void Spawn()
+    protected override void Spawn()
     {
         Projectile projectile = _pool.GetObject();
         projectile.Collided += PutAway;
@@ -71,24 +59,13 @@ public class ProjectileSpawner : MonoBehaviour
         projectile.FlyedAway -= PutAway;
     }
 
-    private IEnumerator Fire()
-    {
-        while (enabled)
-        {
-            Spawn();
-            yield return _wait;
-        }
-    }
-
     private void SetLayerMask(Projectile projectile)
     {
         if (_owner is Enemy)
         {
             projectile.gameObject.layer = LayerMask.NameToLayer(_enemyLayer);
         }
-        else
-
-        if (_owner is Pig)
+        else if (_owner is Pig)
         {
             projectile.gameObject.layer = LayerMask.NameToLayer(_playerLayer);
         }
