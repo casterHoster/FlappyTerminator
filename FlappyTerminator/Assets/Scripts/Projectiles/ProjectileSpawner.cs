@@ -7,10 +7,6 @@ public class ProjectileSpawner : Spawner
     [SerializeField] private float _force;
     [SerializeField] private ProjectilePool _pool;
 
-    private string _playerLayer = "Player";
-    private string _enemyLayer = "Enemy";
-    //[SerializeField] private LayerMask _enemyLayer;
-
     private void Start()
     {
         StartGenerate();
@@ -61,13 +57,6 @@ public class ProjectileSpawner : Spawner
 
     private void SetLayerMask(Projectile projectile)
     {
-        if (_owner is Enemy)
-        {
-            projectile.gameObject.layer = LayerMask.NameToLayer(_enemyLayer);
-        }
-        else if (_owner is Pig)
-        {
-            projectile.gameObject.layer = LayerMask.NameToLayer(_playerLayer);
-        }
+     projectile.gameObject.layer = _owner.gameObject.layer;  
     }
 }
