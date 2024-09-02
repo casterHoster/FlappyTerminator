@@ -13,15 +13,15 @@ public class ProjectileSpawner : MonoBehaviour
     private string _playerLayer = "Player";
     private string _enemyLayer = "Enemy";
 
+    private void Awake()
+    {
+        _wait = new WaitForSeconds(_delay);
+    }
+
     private void Start()
     {
         StartFire();
         _owner.Borned += StartFire;
-    }
-
-    private void Awake()
-    {
-        _wait = new WaitForSeconds(_delay);
     }
 
     public void StartFire()

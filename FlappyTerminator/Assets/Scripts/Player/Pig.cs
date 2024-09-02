@@ -33,7 +33,7 @@ public class Pig : Person
         else if (interactable is Enemy)
         {
             Enemy enemy = (Enemy)interactable;
-            Health -= enemy.GetDamage();
+            Health -= enemy.Damage;
         }
 
         else if (interactable is Projectile)

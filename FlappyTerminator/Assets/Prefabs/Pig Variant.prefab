@@ -50,6 +50,12 @@ MonoBehaviour:
   _delay: 1
   _force: 10
   _pool: {fileID: 8807976724605374033}
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &8807976724605374033
 MonoBehaviour:
   m_ObjectHideFlags: 0

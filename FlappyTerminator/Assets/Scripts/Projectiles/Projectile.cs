@@ -15,14 +15,14 @@ public class Projectile : MonoBehaviour, IInteractable
         get {return GetComponent<CollisionHandler>();}
     }
 
-    public float Damage
-    {
-        get {return _damage;}
-    }
-
     private void Awake()
     {
         CollisionHandler.CollisonDetected += ProcessCollision;
+    }
+
+    public float Damage
+    {
+        get {return _damage;}
     }
 
     private void ProcessCollision(IInteractable interactable)

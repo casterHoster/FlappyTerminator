@@ -11,7 +11,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyPool _pool;
 
     private WaitForSeconds _wait;
-    public Action Reseted;
     public event Action Released;
 
     private void Awake()

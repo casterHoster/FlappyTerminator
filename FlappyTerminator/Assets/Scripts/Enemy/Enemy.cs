@@ -10,16 +10,7 @@ public class Enemy : Person, IInteractable
     public event Action<Enemy> Died;
 
     public bool IsGivePoints => _isGivePoints;
-
-    public float GetDamage()
-    {
-        return _damage;
-    }
-
-    public void DestroyGameobject()
-    {
-        Destroy(gameObject);
-    }
+    public float Damage => _damage;
 
     protected override void ProcessCollision(IInteractable interactable)
     {
