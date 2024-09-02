@@ -5,42 +5,42 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
 {
     [SerializeField] private T _prefab;
 
-    private Queue<T> ActiveObjects;
-    private List<T> _allCreatedObjects;
+    protected Queue<T> _pool;
+    private List<T> _allPull;
 
-    public IEnumerable<T> PooledObjects => _allCreatedObjects;
+    public IEnumerable<T> PooledObjects => _allPull;
 
     private void Awake()
     {
-        ActiveObjects = new Queue<T>();
-        _allCreatedObjects = new List<T>();
+        _pool = new Queue<T>();
+        _allPull = new List<T>();
     }
 
     public T GetObject()
     {
-        if (ActiveObjects.Count == 0)
+        if (_pool.Count == 0)
         {
             T obj = Instantiate(_prefab);
-            _allCreatedObjects.Add(obj);
+            _allPull.Add(obj);
             return obj;
         }
 
-        return ActiveObjects.Dequeue();
+        return _pool.Dequeue();
     }
 
     public void PutObject(T obj)
     {
         obj.gameObject.SetActive(false);
-        ActiveObjects.Enqueue(obj);
+        _pool.Enqueue(obj);
     }
 
     public void ResetPool()
     {
-        foreach (var obj in _allCreatedObjects)
+        foreach (var obj in _allPull)
         {
             obj.gameObject.SetActive(false);
         }
 
-        ActiveObjects = new Queue<T>(_allCreatedObjects);
+        _pool = new Queue<T>(_allPull);
     }
 }

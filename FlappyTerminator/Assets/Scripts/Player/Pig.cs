@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
-[RequireComponent(typeof(CollisionHandler))]
+[RequireComponent (typeof(CollisionHandler))]
 public class Pig : Person
 {
     [SerializeField] private Vector3 _startPosition;
@@ -30,15 +30,20 @@ public class Pig : Person
             Die();
         }
 
-        else if (interactable is Enemy)
+        if (interactable is Enemy)
         {
+<<<<<<< HEAD:FlappyTerminator/Assets/Scripts/Player/Pig.cs
             Enemy enemy = (Enemy)interactable;
             Health -= enemy.Damage;
+=======
+            Enemy enemy = (Enemy) interactable;
+            Health -= enemy.GetDamage();
+>>>>>>> parent of c2123de (commit):FlappyTerminator/Assets/Scripts/Pig.cs
         }
 
-        else if (interactable is Projectile)
+        if (interactable is Projectile)
         {
-            Projectile projectile = (Projectile)interactable;
+            Projectile projectile = (Projectile) interactable;
             Health -= projectile.Damage;
         }
 
