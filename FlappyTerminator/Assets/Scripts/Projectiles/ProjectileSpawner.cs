@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class ProjectileSpawner : Spawner
@@ -20,7 +19,6 @@ public class ProjectileSpawner : Spawner
             projectile.Collided -= PutAway;
             projectile.FlyedAway -= PutAway;
         }
-
 
         _pool.ResetPool();
     }

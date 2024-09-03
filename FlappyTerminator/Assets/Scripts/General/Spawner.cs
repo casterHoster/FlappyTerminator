@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Spawner: MonoBehaviour
@@ -12,6 +11,8 @@ public abstract class Spawner: MonoBehaviour
     {
         _wait = new WaitForSeconds(_delay);
     }
+
+    protected abstract void Spawn();
 
     public void StartGenerate()
     {
@@ -26,6 +27,4 @@ public abstract class Spawner: MonoBehaviour
             yield return _wait;
         }
     }
-
-    protected abstract void Spawn();
 }
