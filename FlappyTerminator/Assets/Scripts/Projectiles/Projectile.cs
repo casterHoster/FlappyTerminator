@@ -4,25 +4,32 @@ using UnityEngine;
 [RequireComponent(typeof(CollisionHandler))]
 public class Projectile : MonoBehaviour, IInteractable
 {
-    public Action<Projectile> FlyedAway;
+    public event Action<Projectile> FlyedAway;
+    public event Action<Projectile> Collided;
 
+    public CollisionHandler CollisionHandler;
     private float _damage = 1;
 
-    public Action<Projectile> Collided;
-
-    public CollisionHandler CollisionHandler
-    {
-        get {return GetComponent<CollisionHandler>();}
-    }
+    public float Damage => _damage;
 
     private void Awake()
+    {
+        CollisionHandler = GetComponent<CollisionHandler>();
+    }
+
+    private void OnEnable()
     {
         CollisionHandler.CollisonDetected += ProcessCollision;
     }
 
-    public float Damage
+    private void OnDisable()
     {
-        get {return _damage;}
+        CollisionHandler.CollisonDetected += ProcessCollision;
+    }
+
+    public void ReportAboutCollided()
+    {
+        Collided?.Invoke(this);
     }
 
     private void ProcessCollision(IInteractable interactable)

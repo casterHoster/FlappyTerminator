@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4cddf9b0de5244fb5d5da1e2d2e76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delay: 3
+  _delay: 2
   _rightBorder: {fileID: 493012506}
   _lowerBound: 5.5
   _upperBound: -2.2

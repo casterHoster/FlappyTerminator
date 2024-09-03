@@ -28,10 +28,15 @@ public class ProjectileSpawner : Spawner
         Projectile projectile = _pool.GetObject();
         projectile.Collided += PutAway;
         projectile.FlyedAway += PutAway;
+        projectile.gameObject.SetActive(true);
+        Initialize(projectile);
+    }
+
+    private void Initialize(Projectile projectile)
+    {
         projectile.transform.position = transform.position;
         projectile.transform.rotation = _owner.transform.rotation;
         SetLayerMask(projectile);
-        projectile.gameObject.SetActive(true);
 
         if (projectile.TryGetComponent(out Rigidbody2D rigidbody2d))
         {

@@ -18,7 +18,7 @@ public class Enemy : Person, IInteractable
         {
             Health--;
             Projectile projectile = (Projectile)interactable;
-            projectile.Collided?.Invoke(projectile);
+            projectile.ReportAboutCollided();
 
             if (Health <= 0)
             {
