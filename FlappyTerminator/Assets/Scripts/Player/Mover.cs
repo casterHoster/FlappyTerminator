@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent (typeof(KeyReader))]
 public class Mover : MonoBehaviour
 {
     [SerializeField] private float _tapForce;
@@ -15,27 +16,33 @@ public class Mover : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
-    private KeyCode _keySpace = KeyCode.Space;
+    private KeyReader _keyReader;
 
     private void Start()
     {
         _startPosition = transform.position;
         _rigidbody2D = GetComponent<Rigidbody2D>();
-
+        _keyReader = GetComponent<KeyReader>();
         _maxRotation = Quaternion.Euler(0,0, _maxRotationZ);
         _minRotation = Quaternion.Euler(0, 0, _minRotationZ);
+
+        _keyReader.SpaceIsDown += Jump;
     }
 
+    private void OnDestroy()
+    {
+        _keyReader.SpaceIsDown -= Jump;
+    }
 
     private void Update()
-    {
-        if (Input.GetKeyDown(_keySpace)) 
-        {
-            _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
-            transform.rotation = _maxRotation;
-        }
-        
+    { 
         transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, Time.deltaTime * _rotationSpeed);
+    }
+
+    private void Jump()
+    {
+        _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
+        transform.rotation = _maxRotation;
     }
 
     public void Reset()

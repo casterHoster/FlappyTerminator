@@ -21,6 +21,13 @@ public class Game : MonoBehaviour
         _pig.Died += StopGame;
     }
 
+    private void OnDisable()
+    {
+        _startScreen.PlayButtonClicked -= OnPlayButtonClick;
+        _endScreen.RestartButtonClicked -= OnPlayButtonClick;
+        _pig.Died -= StopGame;
+    }
+
     private void OnPlayButtonClick()
     {
         _startScreen.Close();

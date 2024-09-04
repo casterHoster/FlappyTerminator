@@ -29,13 +29,11 @@ public class Pig : Person
         {
             Die();
         }
-
         else if (interactable is Enemy)
         {
             Enemy enemy = (Enemy)interactable;
             Health -= enemy.Damage;
         }
-
         else if (interactable is Projectile)
         {
             Projectile projectile = (Projectile)interactable;
